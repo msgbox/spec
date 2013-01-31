@@ -1,69 +1,73 @@
 MsgBox Spec Proposal
 ========================
 
-MsgBox is a format meant to replace the important parts of email while
-leaving behind the baggage.
+MsgBox is an exercise in redefining what a modern day message/todo system would look like. If email was never built to do what it is tasked with doing today then what would that system look like?
 
-Email has become overrun with newsletters, spam and conversations while items
-that need to be taken care of are lost or hidden in the noise.
+As Paul Graham explained in his essay from March, 2012 [Frighteningly Ambitious Startup Ideas](http://www.paulgraham.com/ambitious.html), email has become a todo list with email as a way items get on that list. 
 
-Email also has it's problems simply from it's age.
+There have been a few innovative concepts and implementations built on top email that allows it to be used in various ways and they have been relatively successful. Unfortunately the current trend of aqui-hires hasn't produced a long-lived solution.
 
-It is non-international with email address and headers being in US-ASCII format.
+## Design Requirements
 
-It is insecure and unencrypted by default.
+What follows is what I see as necessities for a solution to have a chance at getting some sort of market penetration.
 
-MsgkBox aims to fix this. By using UTF-8 Unicode, internationalization is possible in
-every field including the account address.
+**1. Open Protocol.**
 
-It should also encrypt the body and attachments of the message by default using a
-common encryption standard.
+Whatever the solution is it needs to be an open protocol with a limited scope. It should be encompassing enough to allow items to be passed around and understood by any provider but still allow enough flexibility for people to build innovative things on top of it.
+
+**2. Encryption**
+
+Encryption should be built into the spec because it's 2013 and to not do so would be foolish.
+
+**3. Give control to the Recipient instead of the Sender.**
+
+Allow a person to actually be in control of who can send them items and what can be sent to them.
+
+
+## Ideas
 
 To prevent spam, instead of the concept of a spam blacklist a whitelist is used
-to limit which accounts are able to add items to an account's box.
+to limit which accounts are able to add items to an account's "box".
 
-The MsgBox format is made up of:
+## Item Format
 
-  - Header
-    - Creator (individual account)
-    - Receiver (individual or domain box)
-    - Created_At (timestamp)
-    - MessageID (UUID)
+The MsgBox format would look something like this:
 
-  - Payload
-    - Title, optional
-    - Body, optional
+* Header (non-encrypted)
+    * Creator (individual account)
+    * Receiver (individual or domain box)
+    * Created_At (timestamp)
+    * MessageID (UUID)
+* Payload (encrypted)
+    * Body
+    * Metadata (key/value pairs)
+* Attachments (binary data)
 
-  - Attachments
-    - TODO
 
+## Addresses
 
-# Account Address
+Addresses should be similar to an email address for familiarity. 
 
-Accounts should be unique per provider.
+### Individual Address
 
-## Individual Address
+`particlebanana:home@example.com`
 
-`particlebanana:home::example.com`
+Broken down this represents a user [particlebanana] followed by a colon followed by a box name [home] followed by the domain [example.com]
 
-Broken down this represents a user [particlebanana] followed by a colon followed by
-the box name [home] followed by a double colon followed by the domain [example.com].
+### Shared Address
 
-## Shared Address
+`+organization:work@example.com`
 
-`+organization:work::example.com`
+This adds a plus symbol to the beginning of an addressee to explicitly state that the item can be viewed by multiple parties. Similar in concept to a shared inbox or task list.
 
-This adds a plus symbol to the beginning of an addressee to explicitly state that the
-task should be shared between multiple parties.
+## Encryption
 
-# Encryption
+TO DO
 
-TODO
+## Server Implementation
 
-# Server Implementation
+TO DO
 
-TODO
+## Response Messages
 
-# Response Messages
-
-TODO
+TO DO
